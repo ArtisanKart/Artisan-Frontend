@@ -17,44 +17,7 @@ const Footer = () => {
 
   return (
     <footer className="bg-white border-t border-gray-100">
-      {/* Newsletter Section with Amber Background */}
-      <div className="bg-amber-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-6 md:mb-0 md:w-1/2">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Stay <span className="text-amber-600">Connected</span></h3>
-              <p className="text-gray-600 max-w-md">
-                Subscribe to our newsletter to receive updates on new artisans, limited editions, and exclusive offers.
-              </p>
-            </div>
-            <div className="w-full md:w-1/2 max-w-md">
-              <form onSubmit={handleSubmit} className="flex">
-                <div className="relative flex-grow">
-                  <input 
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Your email address"
-                    className="w-full px-4 py-3 rounded-l-lg border-2 border-r-0 border-gray-200 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-200 transition-all duration-300"
-                    required
-                  />
-                </div>
-                <motion.button 
-                  type="submit"
-                  className="bg-amber-600 hover:bg-amber-700 text-white px-5 py-3 rounded-r-lg transition-all duration-300 flex items-center justify-center"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Send size={18} />
-                </motion.button>
-              </form>
-              <p className="text-xs text-gray-500 mt-2">
-                By subscribing, you agree to our Privacy Policy and consent to receive updates.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+   
 
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -150,7 +113,7 @@ const Footer = () => {
             </h3>
             <ul className="space-y-3 mb-6">
               {[
-                'About Us', 
+                'About', 
                 'Our Artisans', 
                 'Sustainability', 
                 'Careers',

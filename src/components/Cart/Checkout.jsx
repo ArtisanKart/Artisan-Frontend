@@ -67,7 +67,7 @@ const Checkout = () => {
     if (location.state && location.state.cartItems && location.state.cartItems.length > 0) {
       const cartItems = location.state.cartItems;
       const subtotal = location.state.subtotal || cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-      const taxRate = 0.07; // 7% tax
+      const taxRate = 0.07; 
       const tax = subtotal * taxRate;
       
       setCart({
@@ -77,7 +77,6 @@ const Checkout = () => {
         tax: tax
       });
     } else {
-      // Use sample data if no cart data is passed
       const subtotal = sampleProducts.reduce((sum, item) => sum + (item.price * item.quantity), 0);
       const taxRate = 0.07;
       const tax = subtotal * taxRate;

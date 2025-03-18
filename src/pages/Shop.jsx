@@ -633,43 +633,6 @@ const Shop = () => {
         </div>
       </div>
 
-      {/* Featured Artisans Section */}
-      <div className="bg-amber-50 py-12 mt-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-center mb-8">
-            Featured Artisans
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              "Maya Crafts",
-              "Pottery Masters",
-              "Eco Designs",
-              "Silver Artisans",
-            ].map((artisan, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-xl p-4 shadow-sm text-center"
-              >
-                <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-2 border-amber-200">
-                  <img
-                    src={`/api/placeholder/100/100`}
-                    alt={artisan}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <h3 className="font-medium text-lg">{artisan}</h3>
-                <p className="text-gray-500 text-sm mb-4">Master Artisan</p>
-                <button className="text-amber-600 hover:text-amber-700 text-sm font-medium">
-                  View Profile →
-                </button>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </div>
 
       <AnimatePresence>
         {state.mobileFiltersOpen && (

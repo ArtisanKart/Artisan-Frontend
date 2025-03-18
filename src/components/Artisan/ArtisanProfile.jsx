@@ -13,7 +13,7 @@ const ArtisanProfile = () => {
     name: "Maya Sharma",
     profileImage: "https://images.unsplash.com/photo-1559582798-678dfc71ccd8?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
     coverImage: "https://images.unsplash.com/photo-1516554646385-7642248096d1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-    location: "Jaipur, Rajasthan",
+    location: "sillariye, Assam",
     phone: "+91 98765 43210",
     email: "maya.sharma@example.com",
     website: "www.mayashandicraft.com",

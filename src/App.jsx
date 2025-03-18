@@ -6,7 +6,7 @@ import Cart from "./components/Cart/Cart";
 import Checkout from "./components/Cart/Checkout";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
-import ArtisanDashboard from "./components/Dashboard/ArtisanDashboard";
+
 import AdminDashboard from "./components/Dashboard/AdminDasboard";
 import Layout from "./Layout";
 import Weaving from "./components/Category/Weaving";
@@ -63,7 +63,7 @@ function AppContent() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/artisan-dashboard" element={<ArtisanDashboard />} />
+        
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/artisans/:id" element={<ArtisanProfile />} />
