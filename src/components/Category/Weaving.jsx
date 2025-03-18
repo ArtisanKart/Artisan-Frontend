@@ -17,7 +17,7 @@ const Weaving = () => {
         {
           id: 1,
           name: 'Mountain Weavers',
-          image: '/api/placeholder/200/200',
+          image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtvG-M6HZNh9KT-KkYR4XHpi7dH-H3obwTbQ&s',
           location: 'Oaxaca, Mexico',
           specialty: 'Traditional Zapotec weaving',
           bio: 'A cooperative of indigenous weavers using natural dyes and ancient techniques passed down through generations.',
@@ -26,7 +26,7 @@ const Weaving = () => {
         {
           id: 2,
           name: 'Textile Traditions',
-          image: '/api/placeholder/200/200',
+          image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf_X0CCA_zHdP3fOXEsEHuonT9u8hfvsg82Q&s',
           location: 'Marrakech, Morocco',
           specialty: 'Berber weaving patterns',
           bio: 'Family-run studio preserving centuries-old techniques while creating contemporary designs.',
@@ -35,7 +35,7 @@ const Weaving = () => {
         {
           id: 3,
           name: 'Fiber Arts Collective',
-          image: '/api/placeholder/200/200',
+          image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR839t5Khdp6lHTPVLJIDz9MIY4YZcmURtEnQ&s',
           location: 'Bali, Indonesia',
           specialty: 'Ikat and batik textiles',
           bio: 'Artist collective combining traditional Indonesian weaving with modern sustainable practices.',
@@ -49,17 +49,17 @@ const Weaving = () => {
     {
       name: 'Tapestry Weaving',
       description: 'Creating pictorial designs by interlacing weft threads through the warp to completely cover it.',
-      image: '/api/placeholder/400/250'
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjGQvZw89WLqH6nYXpz_PhY8LKvszhje8LXw&s'
     },
     {
       name: 'Ikat',
       description: 'A resist-dyeing technique where threads are bound and dyed before weaving to create patterns.',
-      image: '/api/placeholder/400/250'
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScXWyc-oeqI0Pedu8627xIoQG45Bdi-jr7jQ&s'
     },
     {
       name: 'Backstrap Weaving',
       description: 'Ancient technique using a simple loom attached to the weavers body to create intricate textiles.',
-      image: '/api/placeholder/400/250'
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1pAMrGAHpVtyphjT2lmBa-wDOhoAL51rEdQ&s'
     }
   ];
   useEffect(() => {

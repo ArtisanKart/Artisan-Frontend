@@ -29,10 +29,31 @@ import {
   FaStarOfLife
 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import toast, {Toaster} from "react-hot-toast"
 
 const Checkout = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  
+  // Currency mapping for common countries
+  const countryCurrencyMap = {
+    "United States": "USD",
+    "United Kingdom": "GBP",
+    "Australia": "AUD",
+    "Canada": "CAD",
+    "European Union": "EUR",
+    "Japan": "JPY",
+    "China": "CNY",
+    "India": "INR",
+    "Brazil": "BRL",
+    "South Africa": "ZAR",
+    // Add more countries and their currencies as needed
+  };
+
+  // Default currencies for selection
+  const currencies = [
+    "USD", "EUR", "GBP", "CAD", "AUD", "JPY", "CNY", "INR", "BRL", "ZAR"
+  ];
   
   // Form state
   const [formData, setFormData] = useState({
@@ -44,7 +65,8 @@ const Checkout = () => {
     city: '',
     state: '',
     zipCode: '',
-    country: 'United States'
+    country: 'United States',
+    currency: 'USD'
   });
 
   // Get cart data from location state (passed from Cart component)
@@ -56,12 +78,7 @@ const Checkout = () => {
   });
 
   // Sample products data (in case no cart data is passed)
-  const sampleProducts = [
-    { id: 1, name: 'Handwoven Basket', price: 45.99, quantity: 1, artisan: 'Maria Gonzalez' },
-    { id: 2, name: 'Ceramic Coffee Mug', price: 24.99, quantity: 2, artisan: 'Ahmed Hassan' },
-    { id: 3, name: 'Embroidered Wall Hanging', price: 89.99, quantity: 1, artisan: 'Leila Patel' }
-  ];
-
+ 
   // Initialize cart from location state or use sample data
   useEffect(() => {
     if (location.state && location.state.cartItems && location.state.cartItems.length > 0) {
@@ -97,46 +114,92 @@ const Checkout = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    
+    // Update currency based on country selection
+    if (name === 'country' && countryCurrencyMap[value]) {
+      setFormData(prevState => ({ 
+        ...prevState, 
+        [name]: value,
+        currency: countryCurrencyMap[value]
+      }));
+    }
   };
 
-  // Handle form submission and initiate Razorpay
-  const handleSubmit = (e) => {
+  // Handle form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const receiptId = "RCPT-" + Math.floor(Math.random() * 100000);
     
-    // Generate a random order ID
-    const orderId = Math.floor(Math.random() * 1000000);
-    
-    // In a real implementation, you would make an API call to your backend
-    // to create a Razorpay order and get the order_id
-    
-    // Mock function for initiating Razorpay payment
-    const initiateRazorpayPayment = () => {
-      // This is where you would typically initialize the Razorpay checkout
-      console.log('Initiating Razorpay payment for order:', orderId);
-      console.log('Order details:', { formData, cart, total: total.toFixed(2) });
-      
-      // After successful payment, navigate to order summary
-      // For demo purposes, we'll just navigate directly
-      navigate(`/order-summary/${orderId}`, {
-        state: {
-          order: {
-            id: orderId,
-            date: new Date().toISOString(),
-            items: cart.items,
-            subtotal: cart.subtotal,
-            shipping: cart.shipping,
-            tax: cart.tax,
-            total: total,
-            shippingAddress: formData,
-            paymentMethod: 'Razorpay'
+        // Create an order on the server
+        const response = await fetch("http://localhost:5000/api/payment/create-order", {
+            method: "POST",
+            body: JSON.stringify({
+                amount: total,
+                currency: formData.currency,
+                receipt: receiptId,
+            }),
+            headers: {
+                "Content-Type": "application/json",
+            }
+        });
+
+        if (!response.ok) throw new Error("Order creation failed!");
+
+        const order = await response.json();
+
+       console.log(order);
+       verifyPayment(order);
+        // Step 2.3: Open Razorpay payment gateway
+
+        
+};
+const verifyPayment=async (order)=>
+  {
+   
+    const options = {
+      key:"rzp_test_AwFFGcqPgNWstn", // Replace with your Razorpay key
+      amount: total*100,
+      currency: formData.currency,
+      order_id: order.id,
+      name: "ArtisanKart",
+      description: "Payment for your order",
+      image: "/logo.png",
+      handler: async (response) => {
+          console.log("Payment successful! Response:", response);
+  try
+          {// Send payment details to the backend for verification
+          const res = await fetch("http://localhost:5000/api/payment/verify-payment", {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                  razorpay_order_id: response.razorpay_order.id,
+                  razorpay_payment_id: response.razorpay_payment_id,
+                  razorpay_signature: response.razorpay_signature,
+              }),})
+             const verifyData=await res.json();
+  
+             if(verifyData.message)
+              toast.success(verifyData.message)
           }
+          catch(error)
+         { console.log(error);}
+        },
+        theme:
+        {
+          color:"#5f63b8"
         }
-      });
-    };
-    
-    // Call the Razorpay initialization function
-    initiateRazorpayPayment();
-  };
+      };
+      const rzp1=new window.Razorpay(options);
+      rzp1.open();
+    }
+  
+
+       
+
+  
+  
 
   // Comprehensive list of countries
   const countries = [
@@ -227,7 +290,7 @@ const Checkout = () => {
             <form onSubmit={handleSubmit} className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center">
+                  <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
                     <FaUser className="mr-2 text-yellow-600" size={14} />
                     First Name <span className="text-red-500 ml-1"><FaStarOfLife size={8} /></span>
                   </label>
@@ -241,7 +304,7 @@ const Checkout = () => {
                   />
                 </div>
                 <div>
-                  <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center">
+                  <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
                     <FaUser className="mr-2 text-yellow-600" size={14} />
                     Last Name <span className="text-red-500 ml-1"><FaStarOfLife size={8} /></span>
                   </label>
@@ -255,7 +318,7 @@ const Checkout = () => {
                   />
                 </div>
                 <div>
-                  <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center">
+                  <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
                     <FaEnvelope className="mr-2 text-yellow-600" size={14} />
                     Email <span className="text-red-500 ml-1"><FaStarOfLife size={8} /></span>
                   </label>
@@ -269,7 +332,7 @@ const Checkout = () => {
                   />
                 </div>
                 <div>
-                  <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center">
+                  <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
                     <FaPhone className="mr-2 text-yellow-600" size={14} />
                     Phone <span className="text-red-500 ml-1"><FaStarOfLife size={8} /></span>
                   </label>
@@ -283,7 +346,7 @@ const Checkout = () => {
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center">
+                  <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
                     <FaMapMarkerAlt className="mr-2 text-yellow-600" size={14} />
                     Street Address <span className="text-red-500 ml-1"><FaStarOfLife size={8} /></span>
                   </label>
@@ -297,7 +360,7 @@ const Checkout = () => {
                   />
                 </div>
                 <div>
-                  <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center">
+                  <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
                     <FaCity className="mr-2 text-yellow-600" size={14} />
                     City <span className="text-red-500 ml-1"><FaStarOfLife size={8} /></span>
                   </label>
@@ -311,7 +374,7 @@ const Checkout = () => {
                   />
                 </div>
                 <div>
-                  <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center">
+                  <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
                     <FaMapPin className="mr-2 text-yellow-600" size={14} />
                     State/Province <span className="text-red-500 ml-1"><FaStarOfLife size={8} /></span>
                   </label>
@@ -325,7 +388,7 @@ const Checkout = () => {
                   />
                 </div>
                 <div>
-                  <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center">
+                  <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
                     <FaMapPin className="mr-2 text-yellow-600" size={14} />
                     ZIP/Postal Code <span className="text-red-500 ml-1"><FaStarOfLife size={8} /></span>
                   </label>
@@ -339,7 +402,7 @@ const Checkout = () => {
                   />
                 </div>
                 <div>
-                  <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center">
+                  <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
                     <FaGlobeAmericas className="mr-2 text-yellow-600" size={14} />
                     Country <span className="text-red-500 ml-1"><FaStarOfLife size={8} /></span>
                   </label>
@@ -352,6 +415,23 @@ const Checkout = () => {
                   >
                     {countries.map(country => (
                       <option key={country} value={country}>{country}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                    <FaMoneyBillWave className="mr-2 text-yellow-600" size={14} />
+                    Currency <span className="text-red-500 ml-1"><FaStarOfLife size={8} /></span>
+                  </label>
+                  <select 
+                    name="currency" 
+                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition duration-200" 
+                    onChange={handleChange} 
+                    required
+                    value={formData.currency}
+                  >
+                    {currencies.map(currency => (
+                      <option key={currency} value={currency}>{currency}</option>
                     ))}
                   </select>
                 </div>

@@ -17,7 +17,7 @@ const Textiles = () => {
         {
           id: 1,
           name: 'Mountain Weaver Studio',
-          image: '/api/placeholder/200/200',
+          image: 'https://media.istockphoto.com/id/2149577605/photo/indigenous-woman-weaver-from-the-peruvian-town-of-chinchero-selecting-colored-threads-made.jpg?s=612x612&w=0&k=20&c=HZzwFiEIR2gMsCn5QEf7EiWyjCkLmxdhG_vDMfLDCmw=',
           location: 'Cusco, Peru',
           specialty: 'Traditional Andean weaving',
           bio: 'Family-owned cooperative that preserves ancient Andean weaving techniques using naturally dyed alpaca and sheep wool from their own herds.',
@@ -26,7 +26,7 @@ const Textiles = () => {
         {
           id: 2,
           name: 'Blue Hands Collective',
-          image: '/api/placeholder/200/200',
+          image: 'https://media.istockphoto.com/id/1322306556/photo/man-chooses-socks-on-sale-in-department-store.jpg?s=612x612&w=0&k=20&c=10i8hKkreyiCouhFz0iPRmARvbJujQGbh7xc_IAMBYs=',
           location: 'Kyoto, Japan',
           specialty: 'Natural indigo dyeing',
           bio: 'Artisan collective dedicated to preserving traditional Japanese indigo dyeing techniques using plants grown in their own gardens.',
@@ -35,7 +35,7 @@ const Textiles = () => {
         {
           id: 3,
           name: 'Silk Road Textiles',
-          image: '/api/placeholder/200/200',
+          image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4XcCq20sH7MCxRchzknoH_iPlLYWqf0iIuQ&s',
           location: 'Samarkand, Uzbekistan',
           specialty: 'Silk ikat weaving',
           bio: 'Multi-generational workshop continuing the ancient art of Uzbek ikat, producing vibrant silk textiles using traditional looms and dyeing methods.',
@@ -49,17 +49,17 @@ const Textiles = () => {
     {
       name: 'Ikat',
       description: 'A dyeing technique where threads are bound and dyed before weaving, creating patterns with characteristic blurred edges.',
-      image: '/api/placeholder/400/250'
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_Vku6ZvSvghEzl5FXK7pnXAkcRe-Mgoybgg&s'
     },
     {
       name: 'Block Printing',
       description: 'Traditional method of printing patterns on textiles using carved wooden blocks dipped in natural dyes.',
-      image: '/api/placeholder/400/250'
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeCdIxt8jIKU-ZU3EpAIzWJjAX9nqwxA8KPA&s'
     },
     {
       name: 'Backstrap Weaving',
       description: 'Ancient portable loom technique where one end is attached to a tree or post and the other to the weaver\'s body.',
-      image: '/api/placeholder/400/250'
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXZNGmNDF3XJKKxzPsLqUCoAri8EA3z8zFyQ&s'
     }
   ];
   useEffect(() => {
@@ -330,7 +330,7 @@ const Textiles = () => {
               </div>
               <div className="bg-indigo-100 hidden md:block">
                 <img 
-                  src="/api/placeholder/500/400" 
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6s7BchM1zpYOc5uaRv4KxpszvxVUGIfxaHA&s" 
                   alt="Textile care illustration" 
                   className="w-full h-full object-cover"
                 />
