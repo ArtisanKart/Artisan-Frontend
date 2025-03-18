@@ -130,6 +130,10 @@ const Shop = () => {
     };
     loadProducts();
   }, []);
+  
+  const handleProductClick = (_id) => {
+    navigator(`/product/${_id}`);
+  };
 
   // Filter and sort products
   const filterAndSort = useCallback(() => {
@@ -439,7 +443,7 @@ const Shop = () => {
               className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden group"
             >
               <ProductListing product={product} />
-              <div className="p-4">
+              <div className="p-4" onClick={()=>{handleProductClick(product._id)}}>
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="text-lg font-medium text-gray-900 group-hover:text-amber-600 transition-colors">
                     {product.title}

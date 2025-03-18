@@ -1,29 +1,19 @@
 import React, { useContext, useState } from 'react';
 import { FaStar, FaHeart, FaRegHeart, FaShoppingCart } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { addtowishlist, removefromwishlist } from '../../utils/wishlist';
 import { toast } from 'react-toastify';
 import { UserContext } from '../../utils/user_context';
 
-const ProductCard = ({ product, isInWishlist = false, onWishlistChange }) => {
+const ProductCard = ({ product }) => {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  // Default values if props aren't provided
-  const {
-    id = "1",
-    name = "Block Printed Bedsheet",
-    price = 2500,
-    image = "https://images.unsplash.com/photo-1584302179602-e4c3d3fd629d?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
-    discount = 0,
-    rating = 4.5,
-    reviewCount = 48,
-    isNew = false,
-    inStock = true
-  } = product || {};
-
+  
+  // Destructuring product properties
+  const { _id, name, image, price, discount = 0, rating, reviewCount, isNew = false, inStock = true, isInWishlist = false } = product;
+  
   const discountedPrice = price - (price * discount / 100);
 
   // Navigate to product details page
@@ -33,7 +23,9 @@ const ProductCard = ({ product, isInWishlist = false, onWishlistChange }) => {
       e.stopPropagation();
       return;
     }
-    navigate(`/product/${id}`);
+    
+    // Navigate to product details page using the correct route structure
+    navigate(`/product/${_id}`);
   };
 
   const handleWishlistToggle = async (e) => {
@@ -48,22 +40,17 @@ const ProductCard = ({ product, isInWishlist = false, onWishlistChange }) => {
     setLoading(true);
     try {
       if (isInWishlist) {
-        const response = await removefromwishlist(user.id, id);
+        const response = await removefromwishlist(user.id, _id);
         if (!response.success) {
           throw new Error('Failed to remove item from wishlist');
         }
         toast.success('Item removed from wishlist');
       } else {
-        const response = await addtowishlist(user.id, id);
+        const response = await addtowishlist(user.id, _id);
         if (!response.success) {
           throw new Error('Failed to add item to wishlist');
         }
         toast.success('Item added to wishlist');
-      }
-      
-      // Notify parent component about the change
-      if (onWishlistChange) {
-        onWishlistChange(id, !isInWishlist);
       }
     } catch (error) {
       toast.error(isInWishlist ? 

@@ -65,9 +65,8 @@ function AppContent() {
         <Route path="/register" element={<Register />} />
         <Route path="/artisan-dashboard" element={<ArtisanDashboard />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
-        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/product/:productId" element={<ProductDetail />} />
         <Route path="/artisans/:id" element={<ArtisanProfile />} />
-        <Route path="/shop/:id" element={<ProductDetail />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/wishlist" element={<Wishlist />} />
 
