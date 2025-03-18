@@ -14,7 +14,7 @@ const Bamboo = () => {
       {
         id: 1,
         name: 'Bamboo Weavers',
-        image: 'https://images.unsplash.com/photo-1594007759138-855170ec8dc0',
+        image: 'https://media.istockphoto.com/id/824299522/photo/weaving-traditional-bamboo-basket.jpg?s=612x612&w=0&k=20&c=qM_tHxSnB2BcX2_H09PvF6Kr22jbrmkjTAbByr-hIhI=',
         location: 'Chiang Mai, Thailand',
         specialty: 'Traditional basket weaving',
         bio: 'Multi-generational family of artisans preserving ancient Thai bamboo weaving techniques from the northern highlands. Led by master weaver Niran Prasert who has over 40 years of experience.',
@@ -38,7 +38,7 @@ const Bamboo = () => {
       {
         id: 3,
         name: 'Eco Artisans',
-        image: 'https://images.unsplash.com/photo-1577401239170-897942555fb3',
+        image: 'https://media.istockphoto.com/id/2178322876/photo/close-up-of-wooden-pipe.jpg?s=612x612&w=0&k=20&c=IuMyf8K9B0pxGkmb1xXffXTsY-ctPmBzvUOEXxkMMuU=',
         location: 'Kyoto, Japan',
         specialty: 'Bamboo kitchenware and vessels',
         bio: 'Japanese artisans with expertise in traditional bamboo processing for functional and durable everyday items. Led by third-generation bamboo master Hiroshi Tanaka.',
@@ -71,17 +71,17 @@ const Bamboo = () => {
     {
       name: 'Split Weaving',
       description: 'Bamboo is split into thin strips and woven together to create intricate patterns and durable structures.',
-      image: 'https://images.unsplash.com/photo-1620420297056-16834b62db47?auto=format&fit=crop&w=800&q=80'
+      image: 'https://media.istockphoto.com/id/1453245838/photo/skilled-craftsman-working-manually-a-detailed-bamboo-wood-armchair-with-his-fingers-and-tools.jpg?s=612x612&w=0&k=20&c=qX_7yM8EAMWSOAi_0OK2jm_HQaUP4xljg5Tzi1oibuI='
     },
     {
       name: 'Node Carving',
       description: 'Artisans work with bamboo nodes and joints to create unique decorative elements and functional features.',
-      image: 'https://images.unsplash.com/photo-1588754166705-c3d8e08be90a?auto=format&fit=crop&w=800&q=80'
+      image: 'https://media.istockphoto.com/id/482186532/photo/beautiful-woven-bamboo.jpg?s=612x612&w=0&k=20&c=tjDqf-fwuJQLoddgt84nUywbNH2wqQAJjhKS3E3JQnQ='
     },
     {
       name: 'Steam Bending',
       description: 'Bamboo is heated with steam to make it pliable, then shaped into graceful curves and forms.',
-      image: 'https://images.unsplash.com/photo-1561043433-aaf687c4cf4e?auto=format&fit=crop&w=800&q=80'
+      image: 'https://media.istockphoto.com/id/1202419556/photo/selective-focus-on-traditional-stairs-made-of-fresh-cut-green-long-bamboo-handcrafted-closeup.jpg?s=612x612&w=0&k=20&c=ai_CFJWE90gGA-GCZygaoMB31nv1t09XjKN8zaN4ZaM='
     }
   ];
   
@@ -350,7 +350,7 @@ const Bamboo = () => {
               className="relative"
             >
               <img 
-                src="/api/placeholder/500/400" 
+                src="https://media.istockphoto.com/id/1252966289/photo/giant-bamboo.jpg?s=612x612&w=0&k=20&c=5x0jn0KgVmiVRp_aNIdq_t9uX1buCsEctYK3Di4coIA=" 
                 alt="Sustainable bamboo harvesting" 
                 className="rounded-xl shadow-lg w-full h-auto"
               />

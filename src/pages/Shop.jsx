@@ -659,7 +659,7 @@ const Shop = () => {
               >
                 <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-2 border-amber-200">
                   <img
-                    src={`/api/placeholder/100/100`}
+                    src={`https://media.istockphoto.com/id/871957726/photo/senior-craftsman.jpg?s=612x612&w=0&k=20&c=i7DtAA0cvU5PID2tak5X7qU7uGWB0WtG3p0sH7Q1CHI=`}
                     alt={artisan}
                     className="w-full h-full object-cover"
                   />

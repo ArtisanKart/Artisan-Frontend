@@ -17,7 +17,7 @@ const Pottery = () => {
         {
           id: 1,
           name: 'Terra Ceramics',
-          image: '/api/placeholder/200/200',
+          image: 'https://www.goodnet.org/photos/620x0/42756_hd.jpg',
           location: 'Kyoto, Japan',
           specialty: 'Traditional Japanese pottery',
           bio: 'Master ceramicists with over five generations of experience crafting traditional Japanese stoneware.',
@@ -26,7 +26,7 @@ const Pottery = () => {
         {
           id: 2,
           name: 'Clay Studio',
-          image: '/api/placeholder/200/200',
+          image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOFFrCeNNH5798vaKNiAFT-THikqN6iP_79w&s',
           location: 'Portland, USA',
           specialty: 'Contemporary functional pottery',
           bio: 'Artist collective specializing in modern designs that balance aesthetic beauty and everyday functionality.',
@@ -35,7 +35,7 @@ const Pottery = () => {
         {
           id: 3,
           name: 'Garden Pottery',
-          image: '/api/placeholder/200/200',
+          image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjy1yq23uMfsJUZObYc-OBNH-gQpg9ZnO4Cg&s',
           location: 'Valencia, Spain',
           specialty: 'Terracotta garden accessories',
           bio: 'Family workshop using traditional Mediterranean techniques to create durable and beautiful terracotta pieces.',
@@ -66,17 +66,17 @@ const Pottery = () => {
     {
       name: 'Wheel Throwing',
       description: 'Creating symmetrical forms by shaping clay on a potters wheel, a technique dating back thousands of years.',
-      image: '/api/placeholder/400/250'
+      image: 'https://media.istockphoto.com/id/1147402081/photo/top-view-of-hands-with-clay-making-of-a-ceramic-pot-on-the-pottery-wheel-hobby-and-leisure.jpg?s=612x612&w=0&k=20&c=vh5HDGUN0Xr7UAtz4yrNyPEMaeArZQswp26iJuaXZDg='
     },
     {
       name: 'Hand Building',
       description: 'Constructing pottery by hand using techniques such as pinching, coiling, and slab building.',
-      image: '/api/placeholder/400/250'
+      image: 'https://media.istockphoto.com/id/1144440788/photo/woman-hand-working-on-pot.jpg?s=612x612&w=0&k=20&c=0Cj4nIlKumIINr_jz-ORWoHf5XczCTktjx5RH4cE3Ak='
     },
     {
       name: 'Raku Firing',
       description: 'A Japanese firing technique creating distinctive crackle patterns and metallic finishes.',
-      image: '/api/placeholder/400/250'
+      image: 'https://media.istockphoto.com/id/1171178824/photo/glassblower-in-the-work.jpg?s=612x612&w=0&k=20&c=9PmmZetkx_Ra1xZHiThzFgl09Um9Yoi3H3vF6-GrVyM='
     }
   ];
 

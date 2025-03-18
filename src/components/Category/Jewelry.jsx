@@ -4,6 +4,7 @@ import { Star, ChevronRight, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../Product/ProductCard';
 import fetch_products from '../../utils/products';
+
 const Jewelry = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [jewelryProducts, setJewelryProducts] = useState([]);
@@ -16,7 +17,7 @@ const Jewelry = () => {
         {
           id: 1,
           name: 'Silver Craft Studio',
-          image: '/api/placeholder/200/200',
+          image: 'https://images.unsplash.com/photo-1609245340309-ce5f56782b5a?q=80&w=600&auto=format&fit=crop',
           location: 'Florence, Italy',
           specialty: 'Traditional silver filigree',
           bio: 'Family-owned workshop with three generations of silver artisans creating intricate filigree designs using ancient techniques.',
@@ -25,7 +26,7 @@ const Jewelry = () => {
         {
           id: 2,
           name: 'Gem Artisans',
-          image: '/api/placeholder/200/200',
+          image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOwNWPVj6oAoXcEM7EXWFG6DRtWk1JuxZxtw&s',
           location: 'Jaipur, India',
           specialty: 'Gemstone setting and cutting',
           bio: 'Expert gemologists and jewelry craftspeople who specialize in ethically sourced gemstones and traditional setting techniques.',
@@ -34,7 +35,7 @@ const Jewelry = () => {
         {
           id: 3,
           name: 'Heritage Jewels',
-          image: '/api/placeholder/200/200',
+          image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRV-M5YYbBubzYTrQ6JL2pBRX_jHU8ChduS-A&s',
           location: 'Oaxaca, Mexico',
           specialty: 'Indigenous beadwork and metalsmithing',
           bio: 'Cooperative of indigenous artisans preserving ancestral jewelry-making traditions while supporting local communities.',
@@ -65,17 +66,17 @@ const Jewelry = () => {
     {
       name: 'Filigree',
       description: 'Delicate metalwork using fine threads and beads to create intricate designs, dating back to ancient civilizations.',
-      image: '/api/placeholder/400/250'
+      image: 'https://media.istockphoto.com/id/2148023974/photo/western-belt-buckles-and-tooled-leather-frame.jpg?s=2048x2048&w=is&k=20&c=_4qmTfYK6ZTlvVlhIH_rZ22vTV2hr9XTnKjGkPAmXT0='
     },
     {
       name: 'Lost Wax Casting',
       description: 'An ancient technique where a wax model is created, surrounded by molding material, then melted away to leave a cavity for molten metal.',
-      image: '/api/placeholder/400/250'
+      image: 'https://plus.unsplash.com/premium_photo-1714675739391-7843b99b0d98?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bG9zdCUyMGNhc3QlMjB3YXhpbmd8ZW58MHx8MHx8fDA%3D'
     },
     {
       name: 'Wire Wrapping',
       description: 'A technique where wire is manipulated with hand tools to create intricate designs without soldering.',
-      image: '/api/placeholder/400/250'
+      image: 'https://images.unsplash.com/photo-1617038220319-276d3cfab638?q=80&w=600&auto=format&fit=crop'
     }
   ];
 
@@ -102,8 +103,14 @@ const Jewelry = () => {
     <div className="min-h-screen bg-purple-50">
       {/* Hero Section */}
       <div className="relative overflow-hidden">
-        {/* Static Background Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-purple-800 to-purple-700"></div>
+        {/* Static Background Image */}
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-purple-800 to-purple-700">
+          <img 
+            src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=1920&auto=format&fit=crop" 
+            alt="Jewelry background" 
+            className="w-full h-full object-cover opacity-20 mix-blend-overlay"
+          />
+        </div>
         
         {/* Decorative Elements */}
         <div className="absolute top-1/4 left-10 w-32 h-32 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
@@ -196,7 +203,10 @@ const Jewelry = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                <ProductCard product={product} />
+                <ProductCard product={{
+                  ...product,
+                  image: product.image || `https://images.unsplash.com/photo-1611085583191-a3b181a88353?q=80&w=600&auto=format&fit=crop`
+                }} />
               </motion.div>
             ))}
           </div>
@@ -267,7 +277,7 @@ const Jewelry = () => {
               >
                 <div className="relative h-56">
                   <img 
-                    src={artisan.image} 
+                    src={"https://media.istockphoto.com/id/183770358/photo/home-made-bead-jewelry-making-as-a-hobby.jpg?s=612x612&w=0&k=20&c=iSgIfL9HpxjkKg2ebIIJES5RcvyOyaycWP--FQWdZvs="} 
                     alt={artisan.name} 
                     className="w-full h-full object-cover"
                   />
@@ -300,7 +310,11 @@ const Jewelry = () => {
           >
             <div className="flex flex-col md:flex-row items-start gap-8">
               <div className="bg-purple-100/20 p-4 rounded-lg w-full md:w-auto">
-                <Info className="w-12 h-12 text-purple-600" strokeWidth={1.5} />
+                <img 
+                  src="https://images.unsplash.com/photo-1594970176634-7dba9b0ab499?q=80&w=200&auto=format&fit=crop" 
+                  alt="Jewelry craftsmanship" 
+                  className="w-32 h-32 object-cover rounded-lg"
+                />
               </div>
               
               <div className="flex-1">
