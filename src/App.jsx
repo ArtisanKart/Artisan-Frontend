@@ -22,6 +22,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import AboutUs from "./pages/about";
 import App2 from "../Admin-Frontend/src/App";
+import Wishlist from "./pages/Wishlist";
 
 axios.defaults.withCredentials = true;
 
@@ -68,6 +69,7 @@ function AppContent() {
         <Route path="/artisans/:id" element={<ArtisanProfile />} />
         <Route path="/shop/:id" element={<ProductDetail />} />
         <Route path="/about" element={<AboutUs />} />
+        <Route path="/wishlist" element={<Wishlist />} />
 
         <Route path="/admin-panel/*" element={<App2 />} />
       </Routes>

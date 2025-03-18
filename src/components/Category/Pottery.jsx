@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Star, ChevronRight, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../Product/ProductCard';
+import fetch_products from '../../utils/products';
 
 const Pottery = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -11,65 +12,7 @@ const Pottery = () => {
 
   // Sample data - in a real app, this would come from an API
   useEffect(() => {
-    // Simulate loading delay
-    const timer = setTimeout(() => {
-      setPotteryProducts([
-        {
-          id: 1,
-          name: 'Handcrafted Stoneware Dinner Set',
-          image: '/images/dinnerset.jpg',
-          price: 245,
-          artisan: 'Terra Ceramics',
-          rating: 4.9,
-          featured: true
-        },
-        {
-          id: 2,
-          name: 'Blue Glazed Ceramic Vase',
-          image: '/images/vase.jpg',
-          price: 95,
-          artisan: 'Clay Studio',
-          rating: 4.7,
-          featured: false
-        },
-        {
-          id: 3,
-          name: 'Terracotta Planter Set',
-          image: '/images/planter.jpg',
-          price: 78,
-          artisan: 'Garden Pottery',
-          rating: 4.5,
-          featured: true
-        },
-        {
-          id: 4,
-          name: 'Handpainted Ceramic Mug Set',
-          image: '/api/placeholder/300/300',
-          price: 65,
-          artisan: 'Terra Ceramics',
-          rating: 4.8,
-          featured: false
-        },
-        {
-          id: 5,
-          name: 'Traditional Tea Ceremony Set',
-          image: '/api/placeholder/300/300',
-          price: 185,
-          artisan: 'Clay Studio',
-          rating: 4.6,
-          featured: true
-        },
-        {
-          id: 6,
-          name: 'Rustic Wall Hanging Plates',
-          image: '/api/placeholder/300/300',
-          price: 125,
-          artisan: 'Garden Pottery',
-          rating: 4.7,
-          featured: false
-        }
-      ]);
-
+      
       setFeaturedArtisans([
         {
           id: 1,
@@ -101,10 +44,23 @@ const Pottery = () => {
       ]);
 
       setIsLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    const fetchTextileProducts = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch_products();
+        const filtered = response.filter(p => p.category === "Pottery");
+        setPotteryProducts(filtered); 
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching textile products:", error);
+      }
+    };
+    
+    fetchTextileProducts();
+}, []);
 
   const potteryTechniques = [
     {

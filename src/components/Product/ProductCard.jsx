@@ -1,10 +1,15 @@
-import React from 'react';
-import { FaStar, FaHeart, FaShoppingCart } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-const ProductCard = ({ product }) => {
+import React, { useContext, useState } from 'react';
+import { FaStar, FaHeart, FaRegHeart, FaShoppingCart } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import { addtowishlist, removefromwishlist } from '../../utils/wishlist';
+import { toast } from 'react-toastify';
+import { UserContext } from '../../utils/user_context';
 
+const ProductCard = ({ product, isInWishlist = false, onWishlistChange }) => {
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
+  const [isHovered, setIsHovered] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // Default values if props aren't provided
   const {
@@ -21,13 +26,70 @@ const ProductCard = ({ product }) => {
 
   const discountedPrice = price - (price * discount / 100);
 
-  // Function to handle click event
-  const cli = (id) => {
+  // Navigate to product details page
+  const handleProductClick = (e) => {
+    // Don't navigate if clicking on buttons
+    if (e.target.closest('button')) {
+      e.stopPropagation();
+      return;
+    }
     navigate(`/product/${id}`);
-  }
+  };
+
+  const handleWishlistToggle = async (e) => {
+    e.stopPropagation(); // Prevent navigating to product page
+    
+    if (!user) {
+      toast.info('Please sign in to add items to your wishlist');
+      navigate('/login');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      if (isInWishlist) {
+        const response = await removefromwishlist(user.id, id);
+        if (!response.success) {
+          throw new Error('Failed to remove item from wishlist');
+        }
+        toast.success('Item removed from wishlist');
+      } else {
+        const response = await addtowishlist(user.id, id);
+        if (!response.success) {
+          throw new Error('Failed to add item to wishlist');
+        }
+        toast.success('Item added to wishlist');
+      }
+      
+      // Notify parent component about the change
+      if (onWishlistChange) {
+        onWishlistChange(id, !isInWishlist);
+      }
+    } catch (error) {
+      toast.error(isInWishlist ? 
+        'Could not remove item from wishlist' : 
+        'Could not add item to wishlist');
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAddToCart = (e) => {
+    e.stopPropagation(); // Prevent navigating to product page
+    if (!inStock) return;
+    
+    // Add to cart logic would go here
+    toast.success(`${name} added to cart`);
+  };
 
   return (
-    <div onClick={()=>{cli(product.id)}} className="group relative bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+    <div 
+      className="group relative bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+      onClick={handleProductClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       {/* Product Badge (New or Discount) */}
       {isNew && (
         <div className="absolute top-3 left-3 z-10 bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
@@ -41,26 +103,45 @@ const ProductCard = ({ product }) => {
       )}
       
       {/* Wishlist button */}
-      <button className="absolute top-3 right-3 z-10 h-8 w-8 flex items-center justify-center rounded-full bg-white bg-opacity-70 text-gray-400 hover:text-red-500 transition-colors">
-        <FaHeart />
+      <button 
+        className={`absolute top-3 right-3 z-10 h-8 w-8 flex items-center justify-center rounded-full 
+          ${isHovered ? 'bg-white' : 'bg-white bg-opacity-70'} 
+          ${isInWishlist ? 'text-red-500' : 'text-gray-400 hover:text-red-500'} 
+          transition-all duration-300 ${loading ? 'opacity-50' : ''}`}
+        onClick={handleWishlistToggle}
+        disabled={loading}
+        aria-label={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
+      >
+        {loading ? (
+          <div className="h-4 w-4 border-2 border-gray-300 border-t-red-500 rounded-full animate-spin"></div>
+        ) : isInWishlist ? (
+          <FaHeart className="h-4 w-4" />
+        ) : (
+          <FaRegHeart className="h-4 w-4" />
+        )}
       </button>
       
-      {/* Product Image */}
-      <Link to={`/product/${id}`} className="block overflow-hidden">
+      {/* Product Image with overlay on hover */}
+      <div className="relative overflow-hidden">
         <img 
           src={image} 
           alt={name} 
-          className="w-full h-48 object-cover transform group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-48 object-cover transform group-hover:scale-105 transition-transform duration-500"
         />
-      </Link>
+        {isHovered && (
+          <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center transition-opacity duration-300">
+            <span className="px-4 py-2 bg-white bg-opacity-90 text-sm font-medium rounded-md">
+              View Details
+            </span>
+          </div>
+        )}
+      </div>
       
       {/* Product Info */}
       <div className="p-4">
-        <Link to={`/product/${id}`} className="block">
-          <h3 className="text-sm font-medium text-gray-800 mb-1 hover:text-indigo-600 transition-colors line-clamp-2">
-            {name}
-          </h3>
-        </Link>
+        <h3 className="text-sm font-medium text-gray-800 mb-1 hover:text-indigo-600 transition-colors line-clamp-2 h-10">
+          {name}
+        </h3>
         
         {/* Rating */}
         <div className="flex items-center mb-2">
@@ -87,8 +168,10 @@ const ProductCard = ({ product }) => {
           
           {/* Add to Cart button */}
           <button 
-            className={`p-2 rounded-full bg-indigo-50 text-indigo-600 hover:bg-indigo-100 transition-colors ${!inStock && 'opacity-50 cursor-not-allowed'}`}
+            className={`p-2 rounded-full ${inStock ? 'bg-indigo-50 text-indigo-600 hover:bg-indigo-100' : 'bg-gray-100 text-gray-400'} transition-colors ${!inStock && 'opacity-50 cursor-not-allowed'}`}
             disabled={!inStock}
+            onClick={handleAddToCart}
+            aria-label="Add to cart"
           >
             <FaShoppingCart className="h-4 w-4" />
           </button>

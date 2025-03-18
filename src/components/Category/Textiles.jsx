@@ -3,72 +3,15 @@ import { motion } from 'framer-motion';
 import { Star, ChevronRight, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../Product/ProductCard';
+import fetch_products from '../../utils/products';
 
 const Textiles = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [textileProducts, setTextileProducts] = useState([]);
   const [featuredArtisans, setFeaturedArtisans] = useState([]);
 
-  // Sample data - in a real app, this would come from an API
+
   useEffect(() => {
-    // Simulate loading delay
-    const timer = setTimeout(() => {
-      setTextileProducts([
-        {
-          id: 1,
-          name: 'Hand-woven Merino Wool Throw',
-          image: '/images/throw.jpg',
-          price: 245,
-          artisan: 'Mountain Weaver Studio',
-          rating: 4.9,
-          featured: true
-        },
-        {
-          id: 2,
-          name: 'Indigo-dyed Cotton Table Runner',
-          image: '/images/runner.jpg',
-          price: 125,
-          artisan: 'Blue Hands Collective',
-          rating: 4.7,
-          featured: false
-        },
-        {
-          id: 3,
-          name: 'Handloom Silk Scarf',
-          image: '/images/scarf.jpg',
-          price: 175,
-          artisan: 'Silk Road Textiles',
-          rating: 4.8,
-          featured: true
-        },
-        {
-          id: 4,
-          name: 'Handspun Alpaca Yarn Set',
-          image: '/api/placeholder/300/300',
-          price: 88,
-          artisan: 'Mountain Weaver Studio',
-          rating: 4.6,
-          featured: false
-        },
-        {
-          id: 5,
-          name: 'Embroidered Linen Cushion Cover',
-          image: '/api/placeholder/300/300',
-          price: 110,
-          artisan: 'Blue Hands Collective',
-          rating: 4.5,
-          featured: true
-        },
-        {
-          id: 6,
-          name: 'Botanical Print Cotton Kimono',
-          image: '/api/placeholder/300/300',
-          price: 195,
-          artisan: 'Silk Road Textiles',
-          rating: 4.9,
-          featured: false
-        }
-      ]);
 
       setFeaturedArtisans([
         {
@@ -99,11 +42,7 @@ const Textiles = () => {
           productCount: 15
         }
       ]);
-
-      setIsLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
+      
   }, []);
 
   const textileTechniques = [
@@ -123,6 +62,21 @@ const Textiles = () => {
       image: '/api/placeholder/400/250'
     }
   ];
+  useEffect(() => {
+    const fetchTextileProducts = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch_products();
+        const filtered = response.filter(p => p.category === "Textiles");
+        setTextileProducts(filtered); 
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching textile products:", error);
+      }
+    };
+    
+    fetchTextileProducts();
+}, []);
 
   // Loading state
   if (isLoading) {

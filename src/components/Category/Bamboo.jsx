@@ -3,159 +3,88 @@ import { motion } from 'framer-motion';
 import { Star, ChevronRight, Info, Leaf } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../Product/ProductCard';
+import fetch_products from '../../utils/products';
 
 const Bamboo = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [bambooProducts, setBambooProducts] = useState([]);
   const [featuredArtisans, setFeaturedArtisans] = useState([]);
-
-  // Enhanced data with consistent imagery and real-world details
   useEffect(() => {
-    // Simulate loading delay
-    const timer = setTimeout(() => {
-      setBambooProducts([
-        {
-          id: 1,
-          name: 'Handwoven Bamboo Basket Set',
-          image: 'https://images.unsplash.com/photo-1622977608775-5132e2393690',
-          price: 125,
-          artisan: 'Bamboo Weavers',
-          rating: 4.8,
-          featured: true,
-          reviews: 24,
-          description: 'Set of three nesting baskets with intricate diagonal weave pattern. Perfect for storage or display.',
-          availability: 'In stock',
-          discount: null
-        },
-        {
-          id: 2,
-          name: 'Bamboo Tea Ceremony Set',
-          image: 'https://images.unsplash.com/photo-1563822249366-3abf78a381ec',
-          price: 85,
-          artisan: 'Green Forest Crafts',
-          rating: 4.9,
-          featured: false,
-          reviews: 36,
-          description: 'Traditional tea tray with matching cups, perfect for serving guests or personal relaxation.',
-          availability: 'In stock',
-          discount: null
-        },
-        {
-          id: 3,
-          name: 'Bamboo Kitchen Utensil Set',
-          image: 'https://images.unsplash.com/photo-1584570411963-93d52476338a',
-          price: 60,
-          artisan: 'Eco Artisans',
-          rating: 4.7,
-          featured: true,
-          reviews: 42,
-          description: 'Set of six cooking utensils including spatula, spoon, and strainer. Heat-resistant and naturally antibacterial.',
-          availability: 'In stock',
-          discount: 10
-        },
-        {
-          id: 4,
-          name: 'Bamboo Wind Chimes',
-          image: 'https://images.unsplash.com/photo-1606760227091-3dd870d97f1d',
-          price: 45,
-          artisan: 'Bamboo Weavers',
-          rating: 4.6,
-          featured: false,
-          reviews: 18,
-          description: 'Melodic wind chimes with five hollow bamboo tubes of varying lengths for gentle natural tones.',
-          availability: 'Low stock',
-          discount: null
-        },
-        {
-          id: 5,
-          name: 'Bamboo Furniture Collection',
-          image: 'https://images.unsplash.com/photo-1616046229478-9901c5536a45',
-          price: 295,
-          artisan: 'Green Forest Crafts',
-          rating: 4.8,
-          featured: true,
-          reviews: 14,
-          description: 'Set including coffee table and two chairs. Lightweight yet durable with beautifully curved details.',
-          availability: 'Made to order',
-          discount: 15
-        },
-        {
-          id: 6,
-          name: 'Bamboo Floor Lamp',
-          image: 'https://images.unsplash.com/photo-1513506212968-811b22414de5',
-          price: 150,
-          artisan: 'Eco Artisans',
-          rating: 4.5,
-          featured: false,
-          reviews: 27,
-          description: 'Standing lamp with steam-bent bamboo frame and natural fiber shade. Creates warm, ambient lighting.',
-          availability: 'In stock',
-          discount: null
-        }
-      ]);
-
-      setFeaturedArtisans([
-        {
-          id: 1,
-          name: 'Bamboo Weavers',
-          image: 'https://images.unsplash.com/photo-1594007759138-855170ec8dc0',
-          location: 'Chiang Mai, Thailand',
-          specialty: 'Traditional basket weaving',
-          bio: 'Multi-generational family of artisans preserving ancient Thai bamboo weaving techniques from the northern highlands. Led by master weaver Niran Prasert who has over 40 years of experience.',
-          productCount: 24,
-          established: 1978,
-          rating: 4.8,
-          reviews: 89
-        },
-        {
-          id: 2,
-          name: 'Green Forest Crafts',
-          image: 'https://images.unsplash.com/photo-1532601224476-15c79f2f7a51',
-          location: 'Hangzhou, China',
-          specialty: 'Bamboo furniture and home decor',
-          bio: 'Cooperative of skilled craftspeople combining traditional Chinese bamboo techniques with contemporary design principles. Founded by Liu Wei and now includes 12 master artisans.',
-          productCount: 18,
-          established: 2005,
-          rating: 4.9,
-          reviews: 67
-        },
-        {
-          id: 3,
-          name: 'Eco Artisans',
-          image: 'https://images.unsplash.com/photo-1577401239170-897942555fb3',
-          location: 'Kyoto, Japan',
-          specialty: 'Bamboo kitchenware and vessels',
-          bio: 'Japanese artisans with expertise in traditional bamboo processing for functional and durable everyday items. Led by third-generation bamboo master Hiroshi Tanaka.',
-          productCount: 20,
-          established: 1996,
-          rating: 4.7,
-          reviews: 54
-        }
-      ]);
-
-      setIsLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
+    setFeaturedArtisans([
+      {
+        id: 1,
+        name: 'Bamboo Weavers',
+        image: 'https://images.unsplash.com/photo-1594007759138-855170ec8dc0',
+        location: 'Chiang Mai, Thailand',
+        specialty: 'Traditional basket weaving',
+        bio: 'Multi-generational family of artisans preserving ancient Thai bamboo weaving techniques from the northern highlands. Led by master weaver Niran Prasert who has over 40 years of experience.',
+        productCount: 24,
+        established: 1978,
+        rating: 4.8,
+        reviews: 89
+      },
+      {
+        id: 2,
+        name: 'Green Forest Crafts',
+        image: 'https://images.unsplash.com/photo-1532601224476-15c79f2f7a51',
+        location: 'Hangzhou, China',
+        specialty: 'Bamboo furniture and home decor',
+        bio: 'Cooperative of skilled craftspeople combining traditional Chinese bamboo techniques with contemporary design principles. Founded by Liu Wei and now includes 12 master artisans.',
+        productCount: 18,
+        established: 2005,
+        rating: 4.9,
+        reviews: 67
+      },
+      {
+        id: 3,
+        name: 'Eco Artisans',
+        image: 'https://images.unsplash.com/photo-1577401239170-897942555fb3',
+        location: 'Kyoto, Japan',
+        specialty: 'Bamboo kitchenware and vessels',
+        bio: 'Japanese artisans with expertise in traditional bamboo processing for functional and durable everyday items. Led by third-generation bamboo master Hiroshi Tanaka.',
+        productCount: 20,
+        established: 1996,
+        rating: 4.7,
+        reviews: 54
+      }
+    ]);
   }, []);
+  
+  
+  useEffect(() => {
+    const fetchBambooProducts = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch_products();
+        const filtered = response.filter(p => p.category === "Bamboo");
 
+        setBambooProducts(filtered);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching bamboo products:", error);
+      }
+    };
+    
+    fetchBambooProducts();
+  }, []); 
   const bambooTechniques = [
     {
       name: 'Split Weaving',
       description: 'Bamboo is split into thin strips and woven together to create intricate patterns and durable structures.',
-      image: 'https://images.unsplash.com/photo-1513694203232-719a280e022c'
+      image: 'https://images.unsplash.com/photo-1620420297056-16834b62db47?auto=format&fit=crop&w=800&q=80'
     },
     {
       name: 'Node Carving',
       description: 'Artisans work with bamboo nodes and joints to create unique decorative elements and functional features.',
-      image: 'https://images.unsplash.com/photo-1542556398-95fb5b9f9b9a'
+      image: 'https://images.unsplash.com/photo-1588754166705-c3d8e08be90a?auto=format&fit=crop&w=800&q=80'
     },
     {
       name: 'Steam Bending',
       description: 'Bamboo is heated with steam to make it pliable, then shaped into graceful curves and forms.',
-      image: 'https://images.unsplash.com/photo-1629971513495-bcd197d83c49'
+      image: 'https://images.unsplash.com/photo-1561043433-aaf687c4cf4e?auto=format&fit=crop&w=800&q=80'
     }
   ];
+  
 
   // Loading state
   if (isLoading) {

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Star, ChevronRight, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../Product/ProductCard';
-
+import fetch_products from '../../utils/products';
 const Weaving = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [weavingProducts, setWeavingProducts] = useState([]);
@@ -11,64 +11,7 @@ const Weaving = () => {
 
   // Sample data - in a real app, this would come from an API
   useEffect(() => {
-    // Simulate loading delay
-    const timer = setTimeout(() => {
-      setWeavingProducts([
-        {
-          id: 1,
-          name: 'Handwoven Wool Blanket',
-          image: '/images/blanket.jpg',
-          price: 195,
-          artisan: 'Mountain Weavers',
-          rating: 4.8,
-          featured: true
-        },
-        {
-          id: 2,
-          name: 'Ikat Pattern Table Runner',
-          image: '/images/tablerunner.jpg',
-          price: 75,
-          artisan: 'Textile Traditions',
-          rating: 4.7,
-          featured: false
-        },
-        {
-          id: 3,
-          name: 'Cotton Wall Hanging',
-          image: '/images/wallhanging.jpg',
-          price: 120,
-          artisan: 'Fiber Arts Collective',
-          rating: 4.6,
-          featured: true
-        },
-        {
-          id: 4,
-          name: 'Hand-dyed Woven Scarf',
-          image: '/api/placeholder/300/300',
-          price: 65,
-          artisan: 'Mountain Weavers',
-          rating: 4.9,
-          featured: false
-        },
-        {
-          id: 5,
-          name: 'Handwoven Basket Set',
-          image: '/api/placeholder/300/300',
-          price: 85,
-          artisan: 'Textile Traditions',
-          rating: 4.5,
-          featured: true
-        },
-        {
-          id: 6,
-          name: 'Tapestry Cushion Cover',
-          image: '/api/placeholder/300/300',
-          price: 50,
-          artisan: 'Fiber Arts Collective',
-          rating: 4.7,
-          featured: false
-        }
-      ]);
+    
 
       setFeaturedArtisans([
         {
@@ -99,11 +42,7 @@ const Weaving = () => {
           productCount: 11
         }
       ]);
-
-      setIsLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
+     setIsLoading(false);
   }, []);
 
   const weavingTechniques = [
@@ -123,6 +62,21 @@ const Weaving = () => {
       image: '/api/placeholder/400/250'
     }
   ];
+  useEffect(() => {
+    const fetchTextileProducts = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch_products();
+        const filtered = response.filter(p => p.category === "Weaving");
+        setWeavingProducts(filtered); 
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching textile products:", error);
+      }
+    };
+    
+    fetchTextileProducts();
+}, []);
 
   // Loading state
   if (isLoading) {

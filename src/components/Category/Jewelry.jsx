@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Star, ChevronRight, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../Product/ProductCard';
-
+import fetch_products from '../../utils/products';
 const Jewelry = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [jewelryProducts, setJewelryProducts] = useState([]);
@@ -11,65 +11,7 @@ const Jewelry = () => {
 
   // Sample data - in a real app, this would come from an API
   useEffect(() => {
-    // Simulate loading delay
-    const timer = setTimeout(() => {
-      setJewelryProducts([
-        {
-          id: 1,
-          name: 'Handcrafted Silver Pendant Necklace',
-          image: '/images/pendant.jpg',
-          price: 195,
-          artisan: 'Silver Craft Studio',
-          rating: 4.9,
-          featured: true
-        },
-        {
-          id: 2,
-          name: 'Gold-Plated Gemstone Earrings',
-          image: '/images/earrings.jpg',
-          price: 145,
-          artisan: 'Gem Artisans',
-          rating: 4.7,
-          featured: false
-        },
-        {
-          id: 3,
-          name: 'Beaded Charm Bracelet',
-          image: '/images/bracelet.jpg',
-          price: 85,
-          artisan: 'Heritage Jewels',
-          rating: 4.5,
-          featured: true
-        },
-        {
-          id: 4,
-          name: 'Hammered Copper Ring Set',
-          image: '/api/placeholder/300/300',
-          price: 110,
-          artisan: 'Silver Craft Studio',
-          rating: 4.8,
-          featured: false
-        },
-        {
-          id: 5,
-          name: 'Traditional Filigree Brooch',
-          image: '/api/placeholder/300/300',
-          price: 225,
-          artisan: 'Gem Artisans',
-          rating: 4.6,
-          featured: true
-        },
-        {
-          id: 6,
-          name: 'Handwoven Pearl Anklet',
-          image: '/api/placeholder/300/300',
-          price: 95,
-          artisan: 'Heritage Jewels',
-          rating: 4.7,
-          featured: false
-        }
-      ]);
-
+      
       setFeaturedArtisans([
         {
           id: 1,
@@ -101,10 +43,23 @@ const Jewelry = () => {
       ]);
 
       setIsLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    const fetchTextileProducts = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch_products();
+        const filtered = response.filter(p => p.category === "Jewelry");
+        setJewelryProducts(filtered); 
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching textile products:", error);
+      }
+    };
+    
+    fetchTextileProducts();
+}, []);
 
   const jewelryTechniques = [
     {
