@@ -19,6 +19,7 @@ const Register = () => {
       [name]: value
     }));
   };
+  const link=import.meta.env.VITE_BACKEND_LINK;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,7 +41,7 @@ const Register = () => {
         password:formData.password,
       };      
       // Simulating API call
-      const response=await axios.post("http://localhost:5000/api/auth/register",body);
+      const response=await axios.post(`${link}/api/auth/register`,body);
       if (!response.data.success) {
         throw new Error(response.data.message);
       }

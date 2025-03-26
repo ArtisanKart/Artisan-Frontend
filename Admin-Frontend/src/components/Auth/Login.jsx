@@ -15,7 +15,7 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
+  const link=import.meta.env.VITE_BACKEND_LINK;
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -26,7 +26,7 @@ const Login = () => {
         email:email,
         password:password,
       };
-     const response= await axios.post("http://localhost:5000/api/admin/auth/admin-login",body);
+     const response= await axios.post(`${link}/api/admin/auth/admin-login`,body);
       if (!response.data.success) {
         throw new Error(response.data.message);
       }

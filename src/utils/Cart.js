@@ -1,5 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify"; // Make sure toast is imported
+const link=import.meta.env.VITE_BACKEND_LINK;
 
 export const addToCart = async (userId, productId, quantity) => {
   try {
@@ -9,7 +10,7 @@ export const addToCart = async (userId, productId, quantity) => {
       quantity,
     };
 
-    const response = await axios.post("http://localhost:5000/api/shop/cart/add", body);
+    const response = await axios.post(`${link}/api/shop/cart/add`, body);
 
     if (response.status === 200) {
       toast.success("Product added to cart successfully!");
@@ -24,7 +25,7 @@ export const addToCart = async (userId, productId, quantity) => {
 
 export const fetchCart = async (userId)=>{
   try {
-    const response = await axios.get(`http://localhost:5000/api/shop/cart/get/${userId}`);
+    const response = await axios.get(`${link}/api/shop/cart/get/${userId}`);
     return response?.data?.data?.items || [];
   } catch (error) {
     console.error("Failed to fetch cart:", error);
@@ -40,7 +41,7 @@ export const updateCart = async (userId, productId,quantity) => {
       productId,
       quantity,
     };
-    const response = await axios.put(`http://localhost:5000/api/shop/cart/update-cart`, body);
+    const response = await axios.put(`${link}/api/shop/cart/update-cart`, body);
     if (response.status === 200) {
       toast.success("Cart updated successfully!");
     } else {
@@ -56,7 +57,7 @@ export const updateCart = async (userId, productId,quantity) => {
 export const removeFromCart = async (userId, productId) => {
   try {
     
-    const response = await axios.delete(`http://localhost:5000/api/shop/cart/${userId}/${productId}`);
+    const response = await axios.delete(`${link}/api/shop/cart/${userId}/${productId}`);
     if (response.status === 200) {
       toast.success("Product removed from cart successfully!");
     } else {

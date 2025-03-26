@@ -12,9 +12,10 @@ const ProductReviews = ({ productId }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
+  const link=import.meta.env.VITE_BACKEND_LINK;
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/shop/review/${productId}`)
+    axios.get(`${link}/api/shop/review/${productId}`)
       .then(({ data }) => setReviews(data.data))
       .catch(() => toast.error('Failed to load reviews'));
   }, [productId]);
@@ -29,7 +30,7 @@ const ProductReviews = ({ productId }) => {
 
     setIsSubmitting(true);
     try {
-      const { data } = await axios.post('http://localhost:5000/api/shop/review/add', {
+      const { data } = await axios.post(`${link}/api/shop/review/add`, {
         productId,
         userId: user.id,
         userName: user.userName,

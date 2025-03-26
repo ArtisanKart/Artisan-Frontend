@@ -17,6 +17,7 @@ const Registration = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
+  const link=import.meta.env.VITE_BACKEND_LINK;
 
   const handleChange = (e) => {
     setFormData({
@@ -44,7 +45,7 @@ const Registration = () => {
         password:formData.password,
       };      
       // Simulating API call
-      const response=await axios.post("http://localhost:5000/api/admin/auth/admin-register",body);
+      const response=await axios.post(`${link}/api/admin/auth/admin-register`,body);
       if (!response.data.success) {
         throw new Error(response.data.message);
       }

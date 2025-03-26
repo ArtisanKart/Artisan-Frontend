@@ -28,7 +28,7 @@ const EditProduct = ({ product, onClose, onProductUpdated }) => {
       });
     }
   }, [product]);
-
+  const link=import.meta.env.VITE_BACKEND_LINK;
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -47,7 +47,7 @@ const EditProduct = ({ product, onClose, onProductUpdated }) => {
     setLoading(true);
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/admin/products/edit/${product._id}`,
+        `${link}/api/admin/products/edit/${product._id}`,
         formData
       );
       

@@ -1,9 +1,10 @@
 import axios from "axios";
 import { toast } from "react-toastify"; 
+const link=import.meta.env.VITE_BACKEND_LINK;
 const fetch_products = async () => {
   try {
     const response = await axios.get(
-      "http://localhost:5000/api/shop/products/get"
+      `${link}/api/shop/products/get`
     );
     return response?.data?.data || [];
   } catch (error) {

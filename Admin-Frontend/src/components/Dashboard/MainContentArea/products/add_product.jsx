@@ -15,6 +15,7 @@ const AddProduct = () => {
     totalStock: '',
     averageReview: '',
   });
+  const link=import.meta.env.VITE_BACKEND_LINK;
 
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -36,7 +37,7 @@ const AddProduct = () => {
     if (!file) throw new Error('No image selected');
     const formData = new FormData();
     formData.append('image', file);
-    const res = await axios.post('http://localhost:5000/api/admin/products/upload-image', formData);
+    const res = await axios.post(`${link}/api/admin/products/upload-image`, formData);
     if (res.data.success) {
       return res.data.result.secure_url;
     }
@@ -62,7 +63,7 @@ const AddProduct = () => {
         adminId: admin.id,
       };
 
-      const res = await axios.post('http://localhost:5000/api/admin/products/add', productData);
+      const res = await axios.post(`${link}/api/admin/products/add`, productData);
       if (res.status === 201) {
         setSuccess(true);
         setForm({

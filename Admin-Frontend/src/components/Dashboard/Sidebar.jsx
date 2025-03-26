@@ -44,10 +44,10 @@ const Sidebar = () => {
       path: '/admin-panel/dashboard/products',
     }
   ];
-
+  const link=import.meta.env.VITE_BACKEND_LINK;
   const handleSignOut = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/api/admin/auth/admin-logout", {}, {
+      const response = await axios.post(`${link}/api/admin/auth/admin-logout`, {}, {
         withCredentials: true 
       });
       

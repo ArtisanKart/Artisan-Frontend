@@ -7,6 +7,7 @@ const Login = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const link=import.meta.env.VITE_BACKEND_LINK;
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -20,7 +21,7 @@ const Login = () => {
         email:email,
         password:password,
       };
-     const response= await axios.post("http://localhost:5000/api/auth/login",body);
+     const response= await axios.post(`${link}/api/auth/login`,body);
       if (!response.data.success) {
         throw new Error(response.data.message);
       }

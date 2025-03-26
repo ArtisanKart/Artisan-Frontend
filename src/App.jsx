@@ -28,11 +28,12 @@ axios.defaults.withCredentials = true;
 function AppContent() {
   const [user, setUser] = useState({});
   const navigate = useNavigate();
+  const link=import.meta.env.VITE_BACKEND_LINK;
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/auth/check-auth");
+        const response = await axios.get(`${link}/api/auth/check-auth`);
         if (!response.data.success) {
           navigate("/login");
         } else {

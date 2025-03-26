@@ -26,7 +26,7 @@ const ProductDetail = () => {
   const [inWishlist, setInWishlist] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
+  const link=import.meta.env.VITE_BACKEND_LINK;
   const { user } = React.useContext(UserContext);
   // Fetch product data if not provided in location state
   useEffect(() => {
@@ -34,7 +34,7 @@ const ProductDetail = () => {
       setIsLoading(true);
       const fetchProduct = async () => {
         try {
-          const response = await fetch(`http://localhost:5000/api/shop/products/get/${productId}`);
+          const response = await fetch(`${link}/api/shop/products/get/${productId}`);
           const result = await response.json();
           setProduct(result.data);
         } catch (error) {

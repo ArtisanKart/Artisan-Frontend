@@ -37,14 +37,14 @@ const ProductDetails = () => {
     setProduct(updatedProduct);
     toast.success("Product updated successfully");
   };
-
+  const link=import.meta.env.VITE_BACKEND_LINK;
   const handleDelete = async () => {
     if (!product?._id) return;
 
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
         const response = await axios.delete(
-          `http://localhost:5000/api/admin/products/delete/${product._id}`
+          `${link}/api/admin/products/delete/${product._id}`
         );
         if (response.status === 200) {
           toast.success("Product deleted successfully");

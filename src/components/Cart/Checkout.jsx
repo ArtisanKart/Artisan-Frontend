@@ -49,7 +49,7 @@ const Checkout = () => {
     "South Africa": "ZAR",
     // Add more countries and their currencies as needed
   };
-
+  const link=import.meta.env.VITE_BACKEND_LINK;
   // Default currencies for selection
   const currencies = [
     "USD", "EUR", "GBP", "CAD", "AUD", "JPY", "CNY", "INR", "BRL", "ZAR"
@@ -131,7 +131,7 @@ const Checkout = () => {
     const receiptId = "RCPT-" + Math.floor(Math.random() * 100000);
     
         // Create an order on the server
-        const response = await fetch("http://localhost:5000/api/payment/create-order", {
+        const response = await fetch(`${link}/api/payment/create-order`, {
             method: "POST",
             body: JSON.stringify({
                 amount: parseInt(total),
@@ -168,7 +168,7 @@ const verifyPayment=async (order)=>
           console.log("Payment successful! Response:", response);
   try
           {// Send payment details to the backend for verification
-          const res = await fetch("http://localhost:5000/api/payment/verify-payment", {
+          const res = await fetch(`${link}/api/payment/verify-payment`, {
               method: "POST",
               headers: {
                   "Content-Type": "application/json",
@@ -290,7 +290,7 @@ const verifyPayment=async (order)=>
             <form onSubmit={handleSubmit} className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                  <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center">
                     <FaUser className="mr-2 text-yellow-600" size={14} />
                     First Name <span className="text-red-500 ml-1"><FaStarOfLife size={8} /></span>
                   </label>
@@ -304,7 +304,7 @@ const verifyPayment=async (order)=>
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                  <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center">
                     <FaUser className="mr-2 text-yellow-600" size={14} />
                     Last Name <span className="text-red-500 ml-1"><FaStarOfLife size={8} /></span>
                   </label>
@@ -318,7 +318,7 @@ const verifyPayment=async (order)=>
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                  <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center">
                     <FaEnvelope className="mr-2 text-yellow-600" size={14} />
                     Email <span className="text-red-500 ml-1"><FaStarOfLife size={8} /></span>
                   </label>
@@ -332,7 +332,7 @@ const verifyPayment=async (order)=>
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                  <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center">
                     <FaPhone className="mr-2 text-yellow-600" size={14} />
                     Phone <span className="text-red-500 ml-1"><FaStarOfLife size={8} /></span>
                   </label>
@@ -346,7 +346,7 @@ const verifyPayment=async (order)=>
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                  <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center">
                     <FaMapMarkerAlt className="mr-2 text-yellow-600" size={14} />
                     Street Address <span className="text-red-500 ml-1"><FaStarOfLife size={8} /></span>
                   </label>
@@ -360,7 +360,7 @@ const verifyPayment=async (order)=>
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                  <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center">
                     <FaCity className="mr-2 text-yellow-600" size={14} />
                     City <span className="text-red-500 ml-1"><FaStarOfLife size={8} /></span>
                   </label>
@@ -374,7 +374,7 @@ const verifyPayment=async (order)=>
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                  <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center">
                     <FaMapPin className="mr-2 text-yellow-600" size={14} />
                     State/Province <span className="text-red-500 ml-1"><FaStarOfLife size={8} /></span>
                   </label>
@@ -388,7 +388,7 @@ const verifyPayment=async (order)=>
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                  <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center">
                     <FaMapPin className="mr-2 text-yellow-600" size={14} />
                     ZIP/Postal Code <span className="text-red-500 ml-1"><FaStarOfLife size={8} /></span>
                   </label>
@@ -402,7 +402,7 @@ const verifyPayment=async (order)=>
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                  <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center">
                     <FaGlobeAmericas className="mr-2 text-yellow-600" size={14} />
                     Country <span className="text-red-500 ml-1"><FaStarOfLife size={8} /></span>
                   </label>
@@ -419,7 +419,7 @@ const verifyPayment=async (order)=>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                  <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center">
                     <FaMoneyBillWave className="mr-2 text-yellow-600" size={14} />
                     Currency <span className="text-red-500 ml-1"><FaStarOfLife size={8} /></span>
                   </label>

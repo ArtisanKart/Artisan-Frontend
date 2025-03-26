@@ -32,6 +32,7 @@ const Navbar = () => {
   const userMenuRef = useRef(null);
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
+  const link=import.meta.env.VITE_BACKEND_LINK;
 
   // Scroll effect
   useEffect(() => {
@@ -105,7 +106,7 @@ const Navbar = () => {
     setIsLoggedIn(false);
     setUserMenuOpen(false);
     try {
-      await axios.post("http://localhost:5000/api/auth/logout", {}, {
+      await axios.post(`${link}/api/auth/logout`, {}, {
         withCredentials: true 
       });
       setUser(null);

@@ -7,11 +7,12 @@ import { AdminContext } from '../utils/admin_context';
 axios.defaults.withCredentials = true;
 const DashboardPage = () => {
   const [admin, setAdmin] = useState({});
+  const link=import.meta.env.VITE_BACKEND_LINK;
 
   useEffect(() => {
     const fetchAdmin = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/admin/auth/admin-check-auth");
+        const response = await axios.get(`${link}/api/admin/auth/admin-check-auth`);
         if (!response.data.success) {
           window.location.href = "/admin-panel/auth/login";
         } else {

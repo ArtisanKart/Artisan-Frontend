@@ -17,12 +17,13 @@ const ProductList = () => {
   const [sortOrder, setSortOrder] = useState('asc');
   const { admin } = useContext(AdminContext);
   const [editingProduct, setEditingProduct] = useState(null);
+  const link=import.meta.env.VITE_BACKEND_LINK;
 
   const fetchProducts = async () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.get(`http://localhost:5000/api/admin/products/get`, {
+      const res = await axios.get(`${link}/api/admin/products/get`, {
         params: {
           adminId: admin?.id,
         },
@@ -48,7 +49,7 @@ const ProductList = () => {
     
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
-        const response = await axios.delete(`http://localhost:5000/api/admin/products/delete/${id}`);
+        const response = await axios.delete(`${link}/api/admin/products/delete/${id}`);
         if (response.status === 200) {
           setProducts(products.filter(product => product._id !== id));
           toast.success('Product deleted successfully');
