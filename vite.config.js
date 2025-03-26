@@ -10,7 +10,7 @@ export default defineConfig({
     host: "0.0.0.0",  
     port: process.env.PORT || 5173,  
     strictPort: true,  
-    allowedHosts: ["artisancart.onrender.com","artisan-backend-c7uk.onrender.com"], 
+    allowedHosts: ["artisancart.onrender.com"], 
  
   },
   preview: {
