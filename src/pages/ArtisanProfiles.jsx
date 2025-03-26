@@ -1,38 +1,10 @@
-// import { useState, useEffect } from "react";
-// import ArtisanCard from "../components/Artisan/ArtisanCard";
 
-// const ArtisanProfiles = () => {
-//   const [artisans, setArtisans] = useState([]);
-
-//   useEffect(() => {
-//     // Fetch artisan data from API or mock data
-//     const fetchArtisans = async () => {
-//       const response = await fetch("/api/artisans"); // Replace with actual API endpoint
-//       const data = await response.json();
-//       setArtisans(data);
-//     };
-
-//     fetchArtisans();
-//   }, []);
-
-//   return (
-//     <div className="container mx-auto p-6">
-//       <h2 className="text-2xl font-bold mb-4">Meet Our Artisans</h2>
-//       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-//         {artisans.map((artisan) => (
-//           <ArtisanCard key={artisan.id} artisan={artisan} />
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ArtisanProfiles;
 
 
 import React, { useState, useEffect } from 'react';
 import ArtisanCard from '../components/Artisan/ArtisanCard';
 import { FaSearch, FaFilter, FaTimes } from 'react-icons/fa';
+import Navbar from '../components/Layout/Navbar';
 
 const ArtisanProfiles = () => {
   const [artisans, setArtisans] = useState([]);
@@ -210,7 +182,10 @@ const ArtisanProfiles = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="flex flex-col min-h-screen">
+      <Navbar />
+
+    <div className="min-h-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-20">
       {/* Page Header */}
       <div className="text-center mb-10">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">Meet Our Skilled Artisans</h1>
@@ -355,6 +330,7 @@ const ArtisanProfiles = () => {
           )}
         </>
       )}
+    </div>
     </div>
   );
 };

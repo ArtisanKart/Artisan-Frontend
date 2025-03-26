@@ -33,7 +33,8 @@ import { useContext } from "react";
 
 import { ToastContainer, toast } from 'react-toastify';
 import fetch_products from "../utils/products";
-
+import { fetchwishlist,addtowishlist,removefromwishlist } from "../utils/wishlist";
+import ProductCard from "../components/Product/productCard1";
 // In your JSX, add this somewhere (usually near the top)
 <ToastContainer position="bottom-right" autoClose={3000} />
 
@@ -45,54 +46,8 @@ const categories = [
   { id: "Textiles", name: "Textiles", icon: <Shirt size={16} /> },
   { id: "Jewelry", name: "Jewelry", icon: <Diamond size={16} /> },
 ];
+import Navbar from "../components/Layout/Navbar";
 
-const ProductListing = memo(({ product }) => {
-  const [hovered, setHovered] = useState(false);
-  const navi = useNavigate();
-  const handleClick = (id) => {
-    navi(`/shop/${id}`);
-  };
-  return (
-    <div
-      className="relative group"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <div className="relative overflow-hidden aspect-square bg-gray-100 rounded-t-xl">
-        <img
-          src={product.image}
-          alt={product.title}
-          className="object-cover w-full h-full transition duration-500 ease-out transform group-hover:scale-110"
-        />
-
-        {product.featured && (
-          <span className="absolute top-3 left-3 bg-amber-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-            Featured
-          </span>
-        )}
-
-        <div
-          className={`absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center transition-opacity duration-300 ${
-            hovered ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <button
-            onClick={() => {
-              handleClick(product.id);
-            }}
-            className="bg-white text-amber-600 hover:bg-amber-50 px-4 py-2 rounded-lg font-medium text-sm shadow-md transition-all transform hover:scale-105"
-          >
-            View Details
-          </button>
-        </div>
-
-        <button className="absolute top-3 right-3 h-8 w-8 bg-white bg-opacity-80 backdrop-blur-sm hover:bg-amber-50 rounded-full flex items-center justify-center shadow-sm transition-colors">
-          <Heart size={16} className="text-gray-700 hover:text-amber-600" />
-        </button>
-      </div>
-    </div>
-  );
-});
 
 const Shop = () => {
   const { user, setUser } = useContext(UserContext);
@@ -442,42 +397,8 @@ const Shop = () => {
               transition={{ delay: index * 0.05 }}
               className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden group"
             >
-              <ProductListing product={product} />
-              <div className="p-4" onClick={()=>{handleProductClick(product._id)}}>
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-lg font-medium text-gray-900 group-hover:text-amber-600 transition-colors">
-                    {product.title}
-                  </h3>
-                  <span className="text-amber-600 font-semibold">
-                    ${product.price}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <RatingStars rating={product.averageReview} />
-                  <span className="text-xs text-gray-500">
-                    {product.category}
-                  </span>
-                </div>
-                <button
-                  onClick={() => {
-                    addToCart(user.id, product._id, 1)
-                      .then(() => {
-                        // Show a success message (optional)
-                        toast.success(`${product.name} added to cart`);
-                        // Navigate to cart page after adding to cart
-                        navigator("/cart");
-                      })
-                      .catch((error) => {
-                        // Handle any errors
-                        toast.error("Failed to add item to cart");
-                        console.error("Error adding to cart:", error);
-                      });
-                  }}
-                  className="mt-3 w-full bg-white border border-amber-600 text-amber-600 hover:bg-amber-600 hover:text-white py-2 rounded-lg transition-colors text-sm font-medium"
-                >
-                  Add to Cart
-                </button>
-              </div>
+              <ProductCard product={product} />
+              
             </motion.div>
           ))}
         </div>
@@ -538,42 +459,9 @@ const Shop = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero Banner */}
-      <div className="w-full bg-gradient-to-r from-amber-600 to-amber-500 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="mb-8 md:mb-0 md:mr-8 md:w-3/5">
-              <div className="flex items-center mb-2">
-                <Award size={24} className="mr-2 text-amber-200" />
-                <span className="text-amber-100 font-medium">
-                  Premium Quality
-                </span>
-              </div>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-                Artisan Marketplace
-              </h1>
-              <p className="text-amber-100 text-lg mb-6 max-w-lg">
-                Discover unique handcrafted products from around the world,
-                expertly made by skilled artisans.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <button
-                  onClick={() => {
-                    navigator("/cart");
-                  }}
-                  className="bg-white text-amber-600 hover:bg-amber-50 px-6 py-3 rounded-lg font-medium shadow-md transition-colors flex items-center"
-                >
-                  <ShoppingCart size={18} className="mr-2" />
-                  Go to Cart
-                  <ArrowRight size={16} className="ml-2" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Navbar></Navbar>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-20">
         <button
           onClick={() =>
             setState((prev) => ({ ...prev, mobileFiltersOpen: true }))

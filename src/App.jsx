@@ -42,7 +42,6 @@ function AppContent() {
         navigate("/login");
       }
     };
-
     fetchUser();
   }, []);
 
@@ -62,13 +61,11 @@ function AppContent() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-     
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/product/:productId" element={<ProductDetail />} />
         <Route path="/artisans/:id" element={<ArtisanProfile />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/wishlist" element={<Wishlist />} />
-
         <Route path="/admin-panel/*" element={<App2 />} />
       </Routes>
     </UserContext.Provider>

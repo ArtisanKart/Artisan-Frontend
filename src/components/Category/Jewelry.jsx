@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Star, ChevronRight, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import ProductCard from '../Product/ProductCard';
+import ProductCard from '../Product/productCard1';
 import fetch_products from '../../utils/products';
 
 const Jewelry = () => {
