@@ -33,9 +33,7 @@ function AppContent() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`${link}/api/auth/check-auth`, {
-          withCredentials: true, 
-        });
+        const response = await axios.get(`${link}/api/auth/check-auth`);
         if (!response.data.success) {
           navigate("/login");
         } else {
